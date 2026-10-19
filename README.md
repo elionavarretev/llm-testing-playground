@@ -4,11 +4,33 @@ Practical examples of how to test features built on large language models (LLMs)
 
 Companion code for the article [How to Test AI That Never Answers the Same Way Twice](https://elionavarrete.com/blog/testing-non-deterministic-ai) ([Spanish version](https://elionavarrete.com/blog/es/testing-non-deterministic-ai)).
 
+## What it shows
+
+Instead of comparing the answer with a fixed sentence, the tests check the properties every answer must keep, and they check them on several runs of the same question.
+
+| File | What it does |
+|---|---|
+| `src/evaluation-set.ts` | Versioned scenarios: refunds inside and outside the 30-day window, an adversarial prompt and an out-of-scope question |
+| `tests/refund-assistant.spec.ts` | Runs each scenario 5 times and checks the contract, the refund policy and that no card number is exposed |
+| `src/assistant.ts` | Client for the assistant under test, with a local fake whose wording changes on every call |
+
 ## Setup
 
 ```bash
 npm install
 npx playwright test
+```
+
+Run more times per scenario:
+
+```bash
+RUNS=20 npx playwright test
+```
+
+Point it at your own assistant (POST `{ question }`, returns `{ text, policyId }`):
+
+```bash
+ASSISTANT_URL=https://your-api.example.com/assistant npx playwright test
 ```
 
 ## License
