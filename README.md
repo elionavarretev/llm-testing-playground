@@ -14,6 +14,7 @@ Instead of comparing the answer with a fixed sentence, the tests check the prope
 |---|---|
 | `src/evaluation-set.ts` | Versioned scenarios: refunds inside and outside the 30-day window, an adversarial prompt and an out-of-scope question |
 | `tests/refund-assistant.spec.ts` | Runs each scenario 5 times and checks the contract, the refund policy and that no card number is exposed |
+| `tests/consistency.spec.ts` and `src/properties.ts` | Reports the pass rate of each property over N runs and enforces a required rate per property (100% for safety rules) |
 | `src/assistant.ts` | Client for the assistant under test, with a local fake whose wording changes on every call |
 
 ## Setup
