@@ -12,5 +12,9 @@
     "@playwright/test": "1.56.1",
     "@types/node": "22.18.0",
     "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.135.0",
+    "zod": "4.6.7"
   }
 }
