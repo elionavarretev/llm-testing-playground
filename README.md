@@ -15,6 +15,7 @@ Instead of comparing the answer with a fixed sentence, the tests check the prope
 | `src/evaluation-set.ts` | Versioned scenarios: refunds inside, outside and exactly at the 30-day limit, two adversarial prompts (ignoring the policy and asking for another customer data) and an out-of-scope question |
 | `tests/refund-assistant.spec.ts` | Runs each scenario 5 times and checks the contract, the refund policy and that no card number is exposed |
 | `tests/consistency.spec.ts` and `src/properties.ts` | Reports the pass rate of each property over N runs and enforces a required rate per property (100% for safety rules) |
+| `tests/judge-calibration.spec.ts`, `src/judge.ts` and `src/calibration-set.ts` | LLM-as-a-judge for tone and relevance, calibrated against human-labeled answers before it is trusted. Uses Claude when `ANTHROPIC_API_KEY` is set and a rule-based judge otherwise |
 | `src/assistant.ts` | Client for the assistant under test, with a local fake whose wording changes on every call |
 
 ## Setup
@@ -34,6 +35,12 @@ Point it at your own assistant (POST `{ question }`, returns `{ text, policyId }
 
 ```bash
 ASSISTANT_URL=https://your-api.example.com/assistant npx playwright test
+```
+
+Use Claude as the judge (the model can be changed with `JUDGE_MODEL`):
+
+```bash
+ANTHROPIC_API_KEY=your-key npx playwright test tests/judge-calibration.spec.ts
 ```
 
 ## License
